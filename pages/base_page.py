@@ -1,6 +1,5 @@
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-from selenium.webdriver.common.by import By
 import math
 
 
