@@ -1,6 +1,7 @@
 from .base_page import BasePage
 from .locators import MainPageLocators
-from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoAlertPresentException
+import math
 
 
 class MainPage(BasePage):
