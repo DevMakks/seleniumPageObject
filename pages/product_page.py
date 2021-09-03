@@ -2,7 +2,7 @@ from .base_page import BasePage
 from .locators import ProductPageLocators
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
+
 
 class ProductPage(BasePage):
     def add_product_to_basket(self):
@@ -15,3 +15,9 @@ class ProductPage(BasePage):
         product_name_in_alert = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME_IN_ALERT).text
         assert product_name == product_name_in_alert
         assert product_price == basket_total_in_inneralert
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+        return True

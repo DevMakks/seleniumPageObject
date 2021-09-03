@@ -14,3 +14,4 @@ class ProductPageLocators():
     PRODUCT_NAME_IN_ALERT = (By.CSS_SELECTOR, "#messages>div:nth-of-type(1) .alertinner>strong")
     PRODUCT_PRICE = (By.CSS_SELECTOR, "div.product_main>p.price_color")
     BASKET_TOTAL_IN_INNERALERT = (By.CSS_SELECTOR, "div.alertinner>p>strong")
+    SUCCESS_MESSAGE = (By.CSS_SELECTOR, "div.alert-success.fade.in>div.alertinner")
