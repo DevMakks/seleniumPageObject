@@ -1,3 +1,4 @@
+from seleniumPageObject.pages.login_page import LoginPage
 from .pages.product_page import ProductPage
 from .pages.basket_page import BasketPage
 import time
@@ -64,7 +65,6 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page.open()
     page.go_to_login_page()
 
-@pytest.mark.new_tests
 def  test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = 'http://selenium1py.pythonanywhere.com/catalogue/the-city-and-the-stars_95/'
     page = ProductPage(browser, link)
@@ -73,3 +73,30 @@ def  test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     basket_page = BasketPage(browser, browser.current_url)
     basket_page.is_basket_empty()
     basket_page.should_be_text_your_basket_is_empty()
+
+
+@pytest.mark.new_tests
+class TestUserAddToBasketFromProductPage():
+    
+    @pytest.fixture(scope='function', autouse=True)
+    def setup(self, browser):
+        link = 'http://selenium1py.pythonanywhere.com/accounts/login/'
+        page = LoginPage(browser, link)
+        page.open()
+        email = str(time.time()) + "@m.com"
+        password = 'kjsSdasd213'
+        page.register_new_user(email, password)
+        print(f'User was registered with email {email}, and password {password}')
+            
+    @pytest.mark.parametrize('link', [link+'0'])
+    def test_user_cant_see_success_message(self, link, browser):
+        page = ProductPage(browser, link)
+        page.open()
+        page.should_not_be_success_message()
+    
+    @pytest.mark.parametrize('link', [link+'0'])
+    def test_user_can_add_product_to_basket(self, browser, link):
+        page = ProductPage(browser, link)
+        page.open()
+        page.add_product_to_basket()
+        time.sleep(5)   
